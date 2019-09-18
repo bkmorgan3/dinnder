@@ -1,19 +1,26 @@
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
+const path = require("path");
 const fetch = require("node-fetch");
+
+
 const config = require("./config/keys");
-
-
+const app = express();
 const PORT = 3000;
 //  Setup App Middleware, DBs, etc.
+mongoose.connect(config.MONGO_DB)
 
 
+app.use("/build", express.static(path.resolve(__dirname, "./build")))
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "./client/index.html"))
+});
 // Get initial data call to Yelp API
 const url = "https://api.yelp.com/v3/businesses/search?location=losangeles"
 
-
-
+// Get Data for App
 const getData = async () => {
     // const location = url;
     const settings = {
@@ -36,9 +43,6 @@ getData(url);
 
 
 
-app.get("/", (req, res) => {
-    res.send("hello")
-});
 
 
 
