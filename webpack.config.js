@@ -9,6 +9,13 @@ module.exports = {
         filename: 'bundle.js',
     },
     mode: process.env.NODE_ENV,
+    devServer: {
+        publicPath: '/build',
+        proxy: {
+            '/': 'http://localhost:3000',
+            '/api': 'http://localhost:3000'
+        }
+    },
     module: {
         rules:[
             {
