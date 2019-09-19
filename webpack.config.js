@@ -8,10 +8,7 @@ module.exports = {
         publicPath: '/build/',
         filename: 'bundle.js',
     },
-    mode:'development',
-    node: {
-        fs: "empty"
-    },
+    mode: process.env.NODE_ENV,
     module: {
         rules:[
             {
@@ -25,7 +22,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
+                test: /\.s?css/,
                 use: [
                     // creates style nodes fom JS strings
                     'style-loader',

@@ -15,10 +15,10 @@ mongoose.connect(config.MONGO_DB)
 app.use("/build", express.static(path.resolve(__dirname, "./build")))
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "./client/index.html"))
+    res.sendFile(path.join(__dirname, "./index.html"))
 });
 // Get initial data call to Yelp API
-const url = "https://api.yelp.com/v3/businesses/search?location=losangeles"
+const url = "https://api.yelp.com/v3/businesses/search?location=venice"
 
 // Get Data for App
 const getData = async () => {
@@ -32,7 +32,7 @@ const getData = async () => {
     try {
         const fetchResponse = await fetch(url, settings);
         const data = await fetchResponse.json();
-        console.log(data.businesses[0])
+        console.log(data.businesses[0].image_url)
         return data;
     } catch(e) {
         return e;
